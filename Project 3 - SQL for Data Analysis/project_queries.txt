@@ -1,0 +1,71 @@
+- Question-set no.1
+
+/* This is the answer to the first question*/
+SELECT BillingCountry,
+COUNT(BillingCountry) AS invoice_count
+FROM Invoice 
+	GROUP BY BillingCountry
+	ORDER BY invoice_count DESC;
+
+/* This is the answer to the second question*/
+SELECT BillingCity, SUM(Total) AS total_invoices
+FROM Invoice 
+	GROUP BY BillingCity
+	ORDER BY total_invoices DESC; 
+
+/* This is the answer to the third question*/
+SELECT c.CustomerId, SUM(i.Total) AS sum_total
+FROM Customer c 
+JOIN Invoice i ON c.CustomerId = i.CustomerId 
+	GROUP BY c.CustomerId 
+	ORDER BY sum_total DESC;
+
+- End of question-set no.1
+
+- Question-set no.2
+
+/* This is the answer to the first question*/
+SELECT DISTINCT(c.Email), c.FirstName, c.LastName, g.Name 
+FROM Customer c 
+JOIN Invoice i ON c.CustomerId = i.CustomerId 
+JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId 
+JOIN Track t ON t.TrackId = il.TrackId 
+JOIN Genre g ON g.GenreId = t.GenreId AND g.Name = 'Rock' 
+	Order BY c.Email;
+
+/* This is the answer to the second question*/
+SELECT a.ArtistId, a.Name artist_name, COUNT(t.TrackId) As tracks_count
+FROM Artist a
+JOIN Album ON a.ArtistId = Album.ArtistId
+JOIN Track t ON Album.AlbumId = t.AlbumId
+JOIN Genre g ON g.GenreId = t.GenreId AND g.Name = 'Rock'
+	GROUP BY  a.ArtistId, a.Name
+	ORDER BY tracks_count DESC;
+
+/* This answers the two parts of the third question*/
+WITH top_paid_artist AS (
+SELECT a.ArtistId, a.Name artist_name,
+ (SUM(il.UnitPrice*il.Quantity)) As tracks_revenue
+FROM Artist a
+JOIN Album ON a.ArtistId = Album.ArtistId
+JOIN Track t ON Album.AlbumId = t.AlbumId
+JOIN Genre g ON g.GenreId = t.GenreId 
+JOIN InvoiceLine il ON t.TrackId = il.TrackId
+	GROUP BY  a.ArtistId, a.Name
+	ORDER BY tracks_revenue DESC
+ ),
+customers_who_paid AS (
+SELECT c.FirstName, c.LastName,
+ (SUM(il.UnitPrice*il.Quantity)) AS amount_spent
+ FROM Customer c 
+ JOIN Invoice i ON c.CustomerId = i.CustomerId
+ JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId
+ JOIN Track t ON t.TrackId = il.TrackId
+ JOIN Album al ON al.AlbumId = t.AlbumId
+ JOIN Artist a ON a.ArtistId = al.ArtistId 
+  AND a.Name = (SELECT artist_name FROM top_paid_artist LIMIT 1)
+	GROUP BY c.FirstName, c.LastName  
+	ORDER BY amount_spent DESC
+ )
+ SELECT  * FROM top_paid_artist ;       /* This answers the first part*/
+ SELECT * FROM customers_who_paid ;     /* This answers the second part*/
