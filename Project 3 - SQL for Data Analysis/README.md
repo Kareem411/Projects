@@ -13,7 +13,7 @@ This project was about the exploration of a Digital Music Store Database, in whi
 * Question sets (SQL Project Question Sets.pdf)
 
 ### Files used
-1. The following file contains the code:
+1. The following files contains the code:
    * project_queries.txt
    * sql-project-submission.pdf
 2. The following file are too large to be uploaded:
