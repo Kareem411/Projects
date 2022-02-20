@@ -10,9 +10,11 @@ This project was about the exploration of a Digital Music Store Database, in whi
 ## Requirements
 * DB Browser for SQLite.
 * Matplotlib or Seaborn using Jupyter Notebook.
+* Question sets (SQL Project Question Sets.pdf)
 
 ### Files used
 1. The following file contains the code:
-   * Investigate_a_Dataset(.ipynb/.html)
+   * project_queries.txt
+   * sql-project-submission.pdf
 2. The following file are too large to be uploaded:
-   * tmdb-movies.csv
+   * pandp.db
