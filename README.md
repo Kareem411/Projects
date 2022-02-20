@@ -32,3 +32,16 @@ with “_adj” show the budget and
 revenue of the associated movie
 in terms of 2010 dollars,
 accounting for inflation over time.
+
+## Project 3 : SQL for Data Analysis
+[Check My Project Submission Through This Link](https://github.com/Kareem411/Projects/tree/main/Project%203%20-%20SQL%20for%20Data%20Analysis)
+
+### Overview:
+
+This project was about the exploration of a Digital Music Store Database, in which SQL queries had to be run and visualizations were made to showcase the queries output. 
+
+For the presentation component, four slides were created, and each had 
+* A question of interest.
+* A supporting SQL query needed to answer the question.
+* A supporting visualization created using the final data of the SQL queries that answer the questions of interest.
+* A summary on each slide.
